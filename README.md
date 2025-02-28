@@ -43,33 +43,48 @@ git clone https://github.com/yourusername/Kotlin_SimpleCalculator.git
 
 ## Code Overview
 ``` Kotlin 
-fun main() {  
-    while (true) {  
-        println("Enter first number:")  
-        val num1 = readLine()?.toDoubleOrNull() ?: break  
-        
-        println("Enter second number:")  
-        val num2 = readLine()?.toDoubleOrNull() ?: break  
+fun main() {
+    println("Welcome to Calculator.com")
+    val operations: Map<String, (Double,Double) -> Double> = mapOf(
+        "+" to {a,b -> a+b},
+        "-" to {a,b -> a-b},
+        "*" to {a,b -> a*b},
+        "/" to { a, b ->
+            if (b != 0.0) a / b else {
+                println("Error: Cannot divide by zero!")
+                0.0
+            }
+        },
+        "%" to {a,b -> a % b},
+        "^" to {a,b -> Math.pow(a,b)}
+    )
+    while(true) {
+        print("Enter your first number: ")
+        val num1 = readLine()?.toDoubleOrNull()
+        print("Enter your second number: ")
+        val num2 = readLine()?.toDoubleOrNull()
 
-        println("Choose operation (+, -, *, /, %, ^):")  
-        val operation = readLine()  
+        if (num1 == null || num2 == null) {
+            println("Invalid input. Please enter valid numbers.")
+            return
+        }
 
-        val result = when (operation) {  
-            "+" -> num1 + num2  
-            "-" -> num1 - num2  
-            "*" -> num1 * num2  
-            "/" -> if (num2 != 0.0) num1 / num2 else "Cannot divide by zero"  
-            "%" -> num1 % num2  
-            "^" -> Math.pow(num1, num2)  
-            else -> "Invalid operation"  
-        }  
+        print("Choose operation (+,-,*,/): ")
+        val operator = readLine()
 
-        println("Result: $result")  
+        val operation = operations[operator]
 
-        println("Do you want to continue? (yes/no)")  
-        val choice = readLine()  
-        if (choice?.lowercase() != "yes") break  
-    }  
+        if (operation != null) {
+            val result = operation(num1, num2)
+            println("Result: $result")
+        } else {
+            println("Invalid operator! Please use +,-,*,/,%, or ^")
+        }
+
+        print("Do you want to perform another calculation? (yes/no): ")
+        val choice = readLine()?.lowercase()
+        if (choice != "yes") break
+    }
 }
 ```
 
