@@ -21,7 +21,7 @@ A basic calculator built using Kotlin that performs arithmetic operations. This 
 ## How to Run the Project?
 
 * Clone the Repository
-git clone https://github.com/yourusername/Kotlin_SimpleCalculator.git
+git clone [https://github.com/yourusername/Kotlin_SimpleCalculator.git](https://github.com/Omkar3101/Kotlin4_SimpleCalculator.git)
 
 * Open in IntelliJ IDEA
 
